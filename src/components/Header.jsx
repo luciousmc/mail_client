@@ -1,5 +1,7 @@
-import { IconButton } from "@material-ui/core";
+import { Avatar, IconButton } from "@material-ui/core";
+import NotificationsIcon from "@material-ui/icons/Notifications";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import AppsIcon from "@material-ui/icons/Apps";
 import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import React from "react";
@@ -24,7 +26,15 @@ function Header() {
         <ArrowDropDownIcon className="header__inputCaret" />
       </div>
 
-      <div className="header__right"></div>
+      <div className="header__right">
+        <IconButton>
+          <AppsIcon />
+        </IconButton>
+        <IconButton>
+          <NotificationsIcon />
+        </IconButton>
+        <Avatar />
+      </div>
     </header>
   );
 }
