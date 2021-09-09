@@ -3,6 +3,8 @@ import "./SendMail.css";
 import { useForm } from "react-hook-form";
 import { closeSendMessage } from "../slices/mailSlice";
 import { useDispatch } from "react-redux";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../../firebase";
 
 import CloseIcon from "@material-ui/icons/Close";
 import { Button } from "@material-ui/core";
@@ -17,8 +19,19 @@ function SendMail() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
+  const onSubmit = async (data) => {
+    try {
+      const docRef = await addDoc(collection(db, "emails"), {
+        to: data.to,
+        subject: data.subject,
+        message: data.message,
+        timestamp: serverTimestamp(),
+      });
+      console.log("Document added with ID:", docRef.id);
+      dispatch(closeSendMessage());
+    } catch (error) {
+      console.error("error:", error);
+    }
   };
 
   return (
@@ -47,6 +60,7 @@ function SendMail() {
         {errors.subject && (
           <p className="sendMail__error">Subject is Required</p>
         )}
+
         <input
           {...register("message", { required: true })}
           className="sendMail__message"
