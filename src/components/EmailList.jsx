@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./EmailList.css";
 import Section from "./Section";
 import EmailRow from "./EmailRow";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../../firebase";
 
 import { Checkbox, IconButton } from "@material-ui/core";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -16,6 +18,24 @@ import PeopleIcon from "@material-ui/icons/People";
 import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 
 function EmailList() {
+  const [emails, setEmails] = useState([]);
+
+  useEffect(() => {
+    const getMails = async () => {
+      const querySnapshot = await getDocs(collection(db, "emails"));
+      // querySnapshot.forEach(doc => {
+      //   console.log('doc', doc.id);
+      // })
+      setEmails(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          data: doc.data(),
+        }))
+      );
+    };
+    getMails();
+  }, []);
+
   return (
     <div className="emailList">
       <div className="emailList__settings">
@@ -54,7 +74,18 @@ function EmailList() {
       </div>
 
       <div className="emailList__list">
-        <EmailRow
+        {emails &&
+          emails.map((mail) => (
+            <EmailRow
+              key={mail.id}
+              title={mail.to}
+              subject={mail.subject}
+              description={mail.message}
+              time={mail.timestamp}
+            />
+          ))}
+
+        {/* <EmailRow
           title="Twitch"
           subject="Hey fellow streamer!"
           description="This is a test"
@@ -71,7 +102,7 @@ function EmailList() {
           subject="I think thi sis wrong"
           description="You got the wrong address man, what a bonehead. Please stop spamming me!"
           time="10pm"
-        />
+        /> */}
       </div>
     </div>
   );

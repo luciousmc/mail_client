@@ -19,15 +19,14 @@ function SendMail() {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = async (data) => {
+  const onSubmit = (data) => {
     try {
-      const docRef = await addDoc(collection(db, "emails"), {
+      addDoc(collection(db, "emails"), {
         to: data.to,
         subject: data.subject,
         message: data.message,
         timestamp: serverTimestamp(),
       });
-      console.log("Document added with ID:", docRef.id);
       dispatch(closeSendMessage());
     } catch (error) {
       console.error("error:", error);
