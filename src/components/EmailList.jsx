@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./EmailList.css";
 import Section from "./Section";
 import EmailRow from "./EmailRow";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, orderBy, query } from "firebase/firestore";
 import { db } from "../../firebase";
 
 import { Checkbox, IconButton } from "@material-ui/core";
@@ -22,19 +22,19 @@ function EmailList() {
 
   useEffect(() => {
     const getMails = async () => {
-      const querySnapshot = await getDocs(collection(db, "emails"));
-      // querySnapshot.forEach(doc => {
-      //   console.log('doc', doc.id);
-      // })
-      setEmails(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          data: doc.data(),
-        }))
-      );
+      const emailsRef = collection(db, "emails");
+      const q = query(emailsRef, orderBy("timestamp", "desc"));
+      const querySnapshot = await getDocs(q);
+      
+      const newState = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        data: doc.data(),
+      }));
+
+      setEmails(newState);
     };
     getMails();
-  }, []);
+  }, [emails]);
 
   return (
     <div className="emailList">
@@ -75,34 +75,16 @@ function EmailList() {
 
       <div className="emailList__list">
         {emails &&
-          emails.map((mail) => (
+          emails.map(({ id, data: { to, subject, message, timestamp } }) => (
             <EmailRow
-              key={mail.id}
-              title={mail.to}
-              subject={mail.subject}
-              description={mail.message}
-              time={mail.timestamp}
+              key={id}
+              id={id}
+              title={to}
+              subject={subject}
+              description={message}
+              time={new Date(timestamp?.seconds * 1000).toUTCString()}
             />
           ))}
-
-        {/* <EmailRow
-          title="Twitch"
-          subject="Hey fellow streamer!"
-          description="This is a test"
-          time="10pm"
-        />
-        <EmailRow
-          title="ETBCI"
-          subject="yooo"
-          description="Umm I think we need to meet about the website =)"
-          time="10pm"
-        />
-        <EmailRow
-          title="Toutube"
-          subject="I think thi sis wrong"
-          description="You got the wrong address man, what a bonehead. Please stop spamming me!"
-          time="10pm"
-        /> */}
       </div>
     </div>
   );
