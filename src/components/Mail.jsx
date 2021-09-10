@@ -1,6 +1,8 @@
 import React from "react";
 import "./Mail.css";
-import { useHistory } from "react-router";
+import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectSelectedMail } from "../slices/mailSlice";
 
 import { IconButton } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -18,6 +20,8 @@ import LabelImportantIcon from "@material-ui/icons/LabelImportant";
 
 function Mail() {
   const history = useHistory();
+
+  const { title, description, subject, time } = useSelector(selectSelectedMail);
 
   return (
     <div className="mail">
@@ -73,14 +77,14 @@ function Mail() {
 
       <div className="mail__body">
         <div className="mail__bodyHeader">
-          <h2>Subject</h2>
-          <LabelImportantIcon className='mail__important' />
-          <p>title</p>
-          <p className="mail__time">10pm</p>
+          <h2>{subject}</h2>
+          <LabelImportantIcon className="mail__important" />
+          <p>{title}</p>
+          <p className="mail__time">{time}</p>
         </div>
 
         <div className="mail__message">
-          <p>This is a message</p>
+          <p>{description}</p>
         </div>
       </div>
     </div>
