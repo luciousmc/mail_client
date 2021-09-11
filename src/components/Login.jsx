@@ -1,5 +1,5 @@
 import { Button } from "@material-ui/core";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { auth, googleProvider } from "../../firebase";
