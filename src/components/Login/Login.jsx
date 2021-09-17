@@ -2,8 +2,8 @@ import { Button } from "@material-ui/core";
 import { signInWithPopup } from "firebase/auth";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { auth, googleProvider } from "../../firebase";
-import { login } from "../slices/userSlice";
+import { auth, googleProvider } from "../../../firebase";
+import { login } from "../../slices/userSlice";
 import "./Login.css";
 
 function Login() {
@@ -39,4 +39,4 @@ function Login() {
   );
 }
 
-export default Login;
+export {Login};
