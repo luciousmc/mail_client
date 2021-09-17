@@ -2,13 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './EmailList.css';
 import Section from '../Section';
 import EmailRow from '../EmailRow';
-import {
-  collection,
-  onSnapshot,
-  doc,
-  orderBy,
-  query,
-} from 'firebase/firestore';
+import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
 import { db } from '../../../firebase';
 
 import { Checkbox, IconButton } from '@material-ui/core';
@@ -25,6 +19,7 @@ import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 function EmailList() {
   const [emails, setEmails] = useState([]);
+
   useEffect(() => {
     console.count('useEffect Calls');
     const emailsRef = collection(db, 'emails');
