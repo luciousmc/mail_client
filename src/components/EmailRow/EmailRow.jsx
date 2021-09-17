@@ -4,7 +4,7 @@ import StarBorderOutlinedIcon from "@material-ui/icons/StarBorderOutlined";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { selectMail } from "../slices/mailSlice";
+import { selectMail } from "../../slices/mailSlice";
 import "./EmailRow.css";
 
 function EmailRow({ id, title, subject, description, time }) {
@@ -49,4 +49,4 @@ function EmailRow({ id, title, subject, description, time }) {
   );
 }
 
-export default EmailRow;
+export {EmailRow};
