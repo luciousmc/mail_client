@@ -21,7 +21,6 @@ function EmailList() {
   const [emails, setEmails] = useState([]);
 
   useEffect(() => {
-    console.count('useEffect Calls');
     const emailsRef = collection(db, 'emails');
     const q = query(emailsRef, orderBy('timestamp', 'desc'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
