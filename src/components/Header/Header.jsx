@@ -6,10 +6,10 @@ import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import React from "react";
 import "./Header.css";
-import { logout, selectUser } from "../slices/userSlice";
+import { logout, selectUser } from "../../slices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../../firebase";
 
 function Header() {
   const user = useSelector(selectUser);
@@ -55,4 +55,4 @@ function Header() {
   );
 }
 
-export default Header;
+export  {Header};
