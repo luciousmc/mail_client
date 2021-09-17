@@ -1,4 +1,4 @@
-import { Avatar, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import AppsIcon from "@material-ui/icons/Apps";
@@ -18,9 +18,9 @@ function Header() {
   const signOutUser = () => {
     signOut(auth).then(() => {
       dispatch(logout());
-    })
-  }
-  
+    });
+  };
+
   return (
     <header className="header">
       <div className="header__left">
@@ -46,9 +46,9 @@ function Header() {
         <IconButton>
           <NotificationsIcon />
         </IconButton>
-        
+
         <div onClick={signOutUser} className="header__avatar">
-          <img src={user?.photoURL} alt="" />
+          <img src={user?.photoURL} alt="User Image" />
         </div>
       </div>
     </header>
