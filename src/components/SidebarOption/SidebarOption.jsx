@@ -11,4 +11,4 @@ function SidebarOption({ Icon, title, number, selected }) {
   );
 }
 
-export default SidebarOption;
+export { SidebarOption };
