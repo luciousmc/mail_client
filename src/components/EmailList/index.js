@@ -1,3 +1,3 @@
-import EmailList from './EmailList';
+import { EmailList } from "./EmailList";
 
 export default EmailList;

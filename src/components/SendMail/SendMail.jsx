@@ -1,10 +1,10 @@
 import React from "react";
 import "./SendMail.css";
 import { useForm } from "react-hook-form";
-import { closeSendMessage } from "../slices/mailSlice";
+import { closeSendMessage } from "../../slices/mailSlice";
 import { useDispatch } from "react-redux";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 
 import CloseIcon from "@material-ui/icons/Close";
 import { Button } from "@material-ui/core";
@@ -85,4 +85,4 @@ function SendMail() {
   );
 }
 
-export default SendMail;
+export { SendMail };

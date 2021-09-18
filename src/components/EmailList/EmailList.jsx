@@ -1,29 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import './EmailList.css';
-import Section from '../Section';
-import EmailRow from '../EmailRow';
-import { collection, onSnapshot, orderBy, query } from 'firebase/firestore';
-import { db } from '../../../firebase';
+import React, { useEffect, useState } from "react";
+import "./EmailList.css";
+import Section from "../Section";
+import EmailRow from "../EmailRow";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { db } from "../../../firebase";
 
-import { Checkbox, IconButton } from '@material-ui/core';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import RedoIcon from '@material-ui/icons/Redo';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import KeyboardHideIcon from '@material-ui/icons/KeyboardHide';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import SettingsIcon from '@material-ui/icons/Settings';
-import InboxIcon from '@material-ui/icons/Inbox';
-import PeopleIcon from '@material-ui/icons/People';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
+import { Checkbox, IconButton } from "@material-ui/core";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import RedoIcon from "@material-ui/icons/Redo";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import KeyboardHideIcon from "@material-ui/icons/KeyboardHide";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import SettingsIcon from "@material-ui/icons/Settings";
+import InboxIcon from "@material-ui/icons/Inbox";
+import PeopleIcon from "@material-ui/icons/People";
+import LocalOfferIcon from "@material-ui/icons/LocalOffer";
 
 function EmailList() {
   const [emails, setEmails] = useState([]);
 
   useEffect(() => {
-    console.count('useEffect Calls');
-    const emailsRef = collection(db, 'emails');
-    const q = query(emailsRef, orderBy('timestamp', 'desc'));
+    console.count("useEffect Calls");
+    const emailsRef = collection(db, "emails");
+    const q = query(emailsRef, orderBy("timestamp", "desc"));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const mails = snapshot.docs.map((mail) => ({
         id: mail.id,
@@ -38,9 +38,9 @@ function EmailList() {
   }, []);
 
   return (
-    <div className='emailList'>
-      <div className='emailList__settings'>
-        <div className='emailList__settingsLeft'>
+    <div className="emailList">
+      <div className="emailList__settings">
+        <div className="emailList__settingsLeft">
           <Checkbox />
           <IconButton>
             <ArrowDropDownIcon />
@@ -52,7 +52,7 @@ function EmailList() {
             <MoreVertIcon />
           </IconButton>
         </div>
-        <div className='emailList__settingsRight'>
+        <div className="emailList__settingsRight">
           <IconButton>
             <ChevronLeftIcon />
           </IconButton>
@@ -68,13 +68,13 @@ function EmailList() {
         </div>
       </div>
 
-      <div className='emailList__sections'>
-        <Section Icon={InboxIcon} title='primary' color='red' selected />
-        <Section Icon={PeopleIcon} title='Social' color='#1A73E8' />
-        <Section Icon={LocalOfferIcon} title='Promotions' color='green' />
+      <div className="emailList__sections">
+        <Section Icon={InboxIcon} title="primary" color="red" selected />
+        <Section Icon={PeopleIcon} title="Social" color="#1A73E8" />
+        <Section Icon={LocalOfferIcon} title="Promotions" color="green" />
       </div>
 
-      <div className='emailList__list'>
+      <div className="emailList__list">
         {emails &&
           emails.map(({ id, data: { to, subject, message, timestamp } }) => (
             <EmailRow
@@ -91,4 +91,4 @@ function EmailList() {
   );
 }
 
-export default EmailList;
+export { EmailList };

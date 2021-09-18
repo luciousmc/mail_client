@@ -2,7 +2,7 @@ import React from "react";
 import "./Mail.css";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { selectSelectedMail } from "../slices/mailSlice";
+import { selectSelectedMail } from "../../slices/mailSlice";
 
 import { IconButton } from "@material-ui/core";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -91,4 +91,4 @@ function Mail() {
   );
 }
 
-export default Mail;
+export { Mail };
